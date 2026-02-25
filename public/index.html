@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Your Subdomain - pawansuthar.in</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #1a1a2e 0%,
+          #16213e 50%,
+          #0f3460 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      .container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 50px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+      }
+      h1 {
+        color: white;
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 30px;
+        font-size: 1rem;
+      }
+      .domain-preview {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        color: #00d4ff;
+        font-family: monospace;
+        font-size: 1.1rem;
+      }
+      .input-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+      label {
+        display: block;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+      }
+      input[type="text"]:focus {
+        outline: none;
+        border-color: #00d4ff;
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+      }
+      input[type="text"]::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
+      .requirements {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.85rem;
+        margin-top: 8px;
+        text-align: left;
+        padding-left: 5px;
+      }
+      .requirements ul {
+        list-style: none;
+        margin-top: 5px;
+      }
+      .requirements li {
+        margin-bottom: 3px;
+      }
+      .requirements li::before {
+        content: "• ";
+        color: #00d4ff;
+      }
+      button {
+        width: 100%;
+        padding: 18px;
+        background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+      }
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+      }
+      button:disabled {
+        background: #555;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+      .message {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        display: none;
+      }
+      .message.success {
+        display: block;
+        background: rgba(0, 255, 0, 0.1);
+        border: 1px solid #00ff00;
+        color: #00ff00;
+      }
+      .message.error {
+        display: block;
+        background: rgba(255, 0, 0, 0.1);
+        border: 1px solid #ff4444;
+        color: #ff4444;
+      }
+      .message.info {
+        display: block;
+        background: rgba(0, 212, 255, 0.1);
+        border: 1px solid #00d4ff;
+        color: #00d4ff;
+      }
+      .success-url {
+        margin-top: 15px;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        font-family: monospace;
+        word-break: break-all;
+      }
+      .success-url a {
+        color: #00d4ff;
+        text-decoration: none;
+      }
+      .success-url a:hover {
+        text-decoration: underline;
+      }
+      .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🚀 Create Your Subdomain</h1>
+      <p class="subtitle">
+        Instantly deploy your own subdomain on pawansuthar.in
+      </p>
+
+      <div class="domain-preview" id="preview">yourname.pawansuthar.in</div>
+
+      <div class="input-group">
+        <label for="subdomain">Subdomain Name</label>
+        <input
+          type="text"
+          id="subdomain"
+          name="subdomain"
+          placeholder="e.g., myproject"
+          maxlength="30"
+          autocomplete="off"
+        />
+        <div class="requirements">
+          <ul>
+            <li>3-30 characters long</li>
+            <li>Letters, numbers, and hyphens only</li>
+            <li>No spaces or special characters</li>
+          </ul>
+        </div>
+      </div>
+
+      <button id="createBtn" onclick="createSubdomain()">
+        Create Subdomain
+      </button>
+
+      <div class="message" id="message"></div>
+    </div>
+
+    <script>
+      const mainDomain = "pawansuthar.in";
+      const input = document.getElementById("subdomain");
+      const preview = document.getElementById("preview");
+      const message = document.getElementById("message");
+      const createBtn = document.getElementById("createBtn");
+
+      // Update preview as user types
+      input.addEventListener("input", function () {
+        const value = this.value.toLowerCase().replace(/[^a-z0-9-]/g, "");
+        this.value = value;
+        preview.textContent = value
+          ? `${value}.${mainDomain}`
+          : `yourname.${mainDomain}`;
+        hideMessage();
+      });
+
+      // Handle Enter key
+      input.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          createSubdomain();
+        }
+      });
+
+      async function createSubdomain() {
+        const subdomain = input.value.trim();
+
+        // Validation
+        if (!subdomain) {
+          showMessage("Please enter a subdomain name", "error");
+          return;
+        }
+
+        if (subdomain.length < 3) {
+          showMessage("Subdomain must be at least 3 characters", "error");
+          return;
+        }
+
+        if (subdomain.length > 30) {
+          showMessage("Subdomain must be 30 characters or less", "error");
+          return;
+        }
+
+        // Show loading state
+        createBtn.disabled = true;
+        createBtn.innerHTML = '<span class="spinner"></span>Creating...';
+        hideMessage();
+
+        try {
+          const response = await fetch("/api/subdomain/create", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ subdomain }),
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            showMessage(
+              `✓ Subdomain created successfully!<div class="success-url"><a href="${data.url}" target="_blank">${data.url}</a></div>`,
+              "success",
+            );
+            input.value = "";
+            preview.textContent = `yourname.${mainDomain}`;
+          } else {
+            showMessage("✗ " + data.message, "error");
+          }
+        } catch (error) {
+          showMessage(
+            "✗ Failed to create subdomain. Please try again.",
+            "error",
+          );
+          console.error("Error:", error);
+        } finally {
+          createBtn.disabled = false;
+          createBtn.textContent = "Create Subdomain";
+        }
+      }
+
+      function showMessage(text, type) {
+        message.className = "message " + type;
+        message.innerHTML = text;
+      }
+
+      function hideMessage() {
+        message.className = "message";
+        message.innerHTML = "";
+      }
+    </script>
+  </body>
+</html>
