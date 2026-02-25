@@ -1,25 +1,29 @@
-const path = require('path');
-const fs = require('fs');
+const path = require("path");
+const fs = require("fs");
 
 // Get sites directory using process.cwd() for Render compatibility
-const getSitesDir = () => path.join(process.cwd(), 'sites');
+const getSitesDir = () => path.join(process.cwd(), "sites");
 
 // Main domain - change this to your actual domain
-const MAIN_DOMAIN = 'pawansuthar.in';
+const MAIN_DOMAIN = "pawansuthar.in";
 
 module.exports = (req, res, next) => {
   const host = req.headers.host;
-  
+
   // Skip if no host or localhost
   if (!host) {
     return next();
   }
 
   // Remove port if present
-  const hostname = host.split(':')[0];
-  
+  const hostname = host.split(":")[0];
+
   // Skip localhost and IP addresses
-  if (hostname === 'localhost' || hostname === '127.0.0.1' || /^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
+  if (
+    hostname === "localhost" ||
+    hostname === "127.0.0.1" ||
+    /^\d+\.\d+\.\d+\.\d+$/.test(hostname)
+  ) {
     return next();
   }
 
@@ -29,21 +33,21 @@ module.exports = (req, res, next) => {
   }
 
   // Skip render default domains (onrender.com)
-  if (hostname.endsWith('.onrender.com')) {
+  if (hostname.endsWith(".onrender.com")) {
     return next();
   }
 
   // Extract subdomain (first part before the main domain)
   let subdomain = hostname;
-  
+
   if (hostname.endsWith(`.${MAIN_DOMAIN}`)) {
-    subdomain = hostname.replace(`.${MAIN_DOMAIN}`, '');
-  } else if (hostname.endsWith('.onrender.com')) {
+    subdomain = hostname.replace(`.${MAIN_DOMAIN}`, "");
+  } else if (hostname.endsWith(".onrender.com")) {
     // For Render: extract subdomain from onrender.com domain
-    subdomain = hostname.replace('.onrender.com', '');
+    subdomain = hostname.replace(".onrender.com", "");
   } else {
     // For other domains, take first part
-    const parts = hostname.split('.');
+    const parts = hostname.split(".");
     if (parts.length > 1) {
       subdomain = parts[0];
     }
@@ -56,13 +60,13 @@ module.exports = (req, res, next) => {
 
   // Check if subdomain folder exists
   const subdomainPath = path.join(getSitesDir(), subdomain);
-  
+
   if (fs.existsSync(subdomainPath)) {
-    const indexPath = path.join(subdomainPath, 'index.html');
+    const indexPath = path.join(subdomainPath, "index.html");
     if (fs.existsSync(indexPath)) {
       return res.sendFile(indexPath);
     }
   }
-  
+
   next();
 };
