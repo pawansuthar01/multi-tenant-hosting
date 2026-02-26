@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Site - globetrekker.site</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background: #0a0a0a;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        padding: 20px 40px;
+        border-bottom: 1px solid #1f1f1f;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #fff;
+      }
+      .logo span {
+        color: #22c55e;
+      }
+      .back-btn {
+        background: #171717;
+        color: #a3a3a3;
+        border: 1px solid #262626;
+        padding: 8px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.85rem;
+      }
+      .back-btn:hover {
+        background: #262626;
+        color: #fff;
+      }
+      main {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+      }
+      .card {
+        background: #141414;
+        border: 1px solid #262626;
+        border-radius: 16px;
+        padding: 32px;
+        width: 100%;
+        max-width: 420px;
+      }
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 8px;
+        text-align: center;
+      }
+      .subtitle {
+        color: #737373;
+        font-size: 0.9rem;
+        text-align: center;
+        margin-bottom: 28px;
+      }
+      .subdomain-display {
+        background: #1a1a1a;
+        padding: 14px 16px;
+        border-radius: 10px;
+        margin-bottom: 24px;
+        color: #22c55e;
+        font-family: monospace;
+        font-size: 1rem;
+        text-align: center;
+      }
+      .input-group {
+        margin-bottom: 20px;
+      }
+      .input-group label {
+        display: block;
+        color: #a3a3a3;
+        margin-bottom: 8px;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+      .input-group input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid #262626;
+        border-radius: 10px;
+        background: #1a1a1a;
+        color: #fff;
+        font-size: 1rem;
+        transition: border-color 0.2s ease;
+      }
+      .input-group input:focus {
+        outline: none;
+        border-color: #22c55e;
+      }
+      .input-group input::placeholder {
+        color: #525252;
+      }
+      .input-group input[type="file"] {
+        padding: 12px;
+        cursor: pointer;
+      }
+      .input-group input[type="file"]::file-selector-button {
+        background: #262626;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        color: #fff;
+        font-size: 0.85rem;
+        cursor: pointer;
+        margin-right: 12px;
+      }
+      .hint {
+        color: #525252;
+        font-size: 0.8rem;
+        margin-top: 8px;
+      }
+      .btn {
+        width: 100%;
+        padding: 16px;
+        background: #22c55e;
+        border: none;
+        border-radius: 10px;
+        color: #000;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-top: 8px;
+      }
+      .btn:hover {
+        background: #16a34a;
+        transform: translateY(-1px);
+      }
+      .btn:disabled {
+        background: #404040;
+        color: #737373;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .message {
+        margin-top: 20px;
+        padding: 14px;
+        border-radius: 10px;
+        display: none;
+        text-align: center;
+      }
+      .message.success {
+        display: block;
+        background: rgba(34, 197, 94, 0.1);
+        border: 1px solid #22c55e;
+        color: #22c55e;
+      }
+      .message.error {
+        display: block;
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid #ef4444;
+        color: #ef4444;
+      }
+      .spinner {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 0.8s linear infinite;
+        margin-right: 8px;
+        vertical-align: middle;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">globetrekker.<span>site</span></div>
+      <a href="/" class="back-btn">← Back to Home</a>
+    </header>
+
+    <main>
+      <div class="card">
+        <h1>Manage Your Site</h1>
+        <p class="subtitle">Upload new files to update your website</p>
+
+        <div class="subdomain-display" id="subdomainDisplay"></div>
+
+        <div class="input-group">
+          <label for="password">Your Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            minlength="4"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="zipFile">Upload ZIP File</label>
+          <input type="file" id="zipFile" accept=".zip" />
+          <div class="hint">Must contain index.html</div>
+        </div>
+
+        <button id="uploadBtn" class="btn" onclick="uploadFiles()">
+          Update Site
+        </button>
+
+        <div class="message" id="message"></div>
+      </div>
+    </main>
+
+    <script>
+      // Get subdomain from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const subdomain = urlParams.get("subdomain");
+
+      const subdomainDisplay = document.getElementById("subdomainDisplay");
+      const passwordInput = document.getElementById("password");
+      const zipFileInput = document.getElementById("zipFile");
+      const uploadBtn = document.getElementById("uploadBtn");
+      const message = document.getElementById("message");
+
+      if (subdomain) {
+        subdomainDisplay.textContent = subdomain + ".globetrekker.site";
+      } else {
+        subdomainDisplay.textContent = "No subdomain specified";
+        uploadBtn.disabled = true;
+      }
+
+      async function uploadFiles() {
+        if (!subdomain) {
+          showMessage("No subdomain specified", "error");
+          return;
+        }
+
+        const password = passwordInput.value;
+        const file = zipFileInput.files[0];
+
+        if (!password || password.length < 4) {
+          showMessage("Please enter your password", "error");
+          return;
+        }
+
+        if (!file) {
+          showMessage("Please select a ZIP file", "error");
+          return;
+        }
+
+        if (!file.name.endsWith(".zip")) {
+          showMessage("Only ZIP files allowed", "error");
+          return;
+        }
+
+        uploadBtn.disabled = true;
+        uploadBtn.innerHTML = '<span class="spinner"></span>Uploading...';
+        hideMessage();
+
+        const formData = new FormData();
+        formData.append("subdomain", subdomain);
+        formData.append("password", password);
+        formData.append("file", file);
+
+        try {
+          const response = await fetch("/api/subdomain/upload", {
+            method: "POST",
+            body: formData,
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            showMessage("Site updated successfully!", "success");
+            zipFileInput.value = "";
+            passwordInput.value = "";
+          } else {
+            showMessage(data.message || data.error, "error");
+          }
+        } catch (error) {
+          showMessage("Failed to upload. Please try again.", "error");
+          console.error(error);
+        } finally {
+          uploadBtn.disabled = false;
+          uploadBtn.textContent = "Update Site";
+        }
+      }
+
+      function showMessage(text, type) {
+        message.className = "message " + type;
+        message.textContent = text;
+      }
+
+      function hideMessage() {
+        message.className = "message";
+        message.textContent = "";
+      }
+    </script>
+  </body>
+</html>
