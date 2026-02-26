@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("express").json;
 const path = require("path");
+require("dotenv").config();
 
 // Import routes
 const subdomainRoutes = require("./routes/subdomain");
@@ -10,16 +11,21 @@ const subdomainMiddleware = require("./middleware/subdomain");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+app.set("trust proxy", 1);
 // Middleware
 app.use(bodyParser());
+
+// Subdomain routing middleware - MUST be BEFORE static files
+// This catches all subdomain requests and serves the appropriate folder
+app.use(subdomainMiddleware);
 
 // Serve static files from public directory (main UI)
 app.use(express.static(path.join(__dirname, "../public")));
 
-// Subdomain routing middleware - MUST be before routes
-// This catches all subdomain requests and serves the appropriate folder
-app.use(subdomainMiddleware);
+// Serve manage.html
+app.get("/manage.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/manage.html"));
+});
 
 // API Routes
 app.use("/api/subdomain", subdomainRoutes);
@@ -31,7 +37,11 @@ app.get("/", (req, res) => {
 
 // 404 handler
 app.use((req, res) => {
-  res.status(404).json({ error: "Not found" });
+  res.status(404).json({
+    success: false,
+    error: "API route not found",
+    message: "The requested API endpoint does not exist",
+  });
 });
 
 // Start server
