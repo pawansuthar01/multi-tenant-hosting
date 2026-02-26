@@ -1,10 +1,19 @@
 const fs = require("fs");
 const path = require("path");
 
-const MAIN_DOMAIN = "pawansuthar.in";
+const MAIN_DOMAIN = "globetrekker.site";
 
 // Use process.cwd() for Render compatibility
-const getSitesDir = () => path.join(process.cwd(), "sites");
+// For local dev (npm start from backend folder), go up one level to project root
+const getSitesDir = () => {
+  const isProduction =
+    process.env.NODE_ENV === "production" || process.env.RENDER;
+  if (isProduction) {
+    return path.join(process.cwd(), "sites");
+  }
+  // Local: sites is at project root (one level up from backend)
+  return path.join(process.cwd(), "..", "sites");
+};
 
 // Ensure sites directory exists
 const ensureSitesDir = () => {

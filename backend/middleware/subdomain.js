@@ -1,11 +1,19 @@
 const path = require("path");
 const fs = require("fs");
 
-// Get sites directory using process.cwd() for Render compatibility
-const getSitesDir = () => path.join(process.cwd(), "sites");
+// Get sites directory - works both locally and on Render
+const getSitesDir = () => {
+  const isProduction =
+    process.env.NODE_ENV === "production" || process.env.RENDER;
+  if (isProduction) {
+    return path.join(process.cwd(), "sites");
+  }
+  // Local: sites is at project root (one level up from backend)
+  return path.join(process.cwd(), "..", "sites");
+};
 
 // Main domain - change this to your actual domain
-const MAIN_DOMAIN = "pawansuthar.in";
+const MAIN_DOMAIN = "globetrekker.site";
 
 module.exports = (req, res, next) => {
   const host = req.headers.host;
