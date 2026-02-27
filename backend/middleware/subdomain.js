@@ -15,7 +15,7 @@ const getSitesDir = () => {
 };
 
 // Main domain - change this to your actual domain
-const MAIN_DOMAIN = process.env.MAIN_DOMAIN;
+const MAIN_DOMAIN = process.env.MAIN_DOMAIN || "pawansuthar.in";
 
 // Generate 404 page - blover style
 const generate404Page = (subdomain) => {
@@ -121,19 +121,19 @@ const generate404Page = (subdomain) => {
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">globetrekker<span class="logo-accent">.site</span></div>
+        <div class="logo">${MAIN_DOMAIN}</div>
     </nav>
     <div class="content">
         <div class="error-code">4<span>04</span></div>
         <h1>Page not found</h1>
         <p class="message">The subdomain you're looking for doesn't exist or has been moved.</p>
-        <div class="subdomain-badge">${subdomain}.globetrekker.site</div>
-        <a href="https://globetrekker.site" class="btn">
+        <div class="subdomain-badge">${subdomain}.${MAIN_DOMAIN}</div>
+        <a href="https://${MAIN_DOMAIN}" class="btn">
             Deploy Your Site
         </a>
     </div>
     <footer class="footer">
-        Free static hosting by globetrekker.site
+        Free static hosting by ${MAIN_DOMAIN}
     </footer>
 </body>
 </html>`;
@@ -150,7 +150,7 @@ module.exports = (req, res, next) => {
   // Remove port if present
   const hostname = host.split(":")[0];
 
-  // Skip main domain requests
+  // Skip main domain requests (let them pass through to static files or external hosting)
   if (hostname === MAIN_DOMAIN || hostname === `www.${MAIN_DOMAIN}`) {
     return next();
   }

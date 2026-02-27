@@ -87,7 +87,7 @@ const generateDefaultHTML = (subdomain) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${subdomain} - Deployed on globetrekker.site</title>
+    <title>${subdomain} - Deployed on ${MAIN_DOMAIN}</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -231,7 +231,7 @@ const generateDefaultHTML = (subdomain) => {
 </head>
 <body>
     <header>
-        <div class="logo">globetrekker.<span>site</span></div>
+        <div class="logo">${MAIN_DOMAIN}</div>
         <a href="https://${MAIN_DOMAIN}/manage.html?subdomain=${subdomain}" class="manage-btn">
             ⚙️ Manage
         </a>
@@ -256,7 +256,7 @@ const generateDefaultHTML = (subdomain) => {
         </div>
     </main>
     <footer>
-        Powered by globetrekker.site
+        Powered by ${MAIN_DOMAIN}
     </footer>
     <script>
         function copyUrl() {

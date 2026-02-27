@@ -30,9 +30,18 @@ app.get("/manage.html", (req, res) => {
 // API Routes
 app.use("/api/subdomain", subdomainRoutes);
 
-// Serve main domain index
+// Serve main domain - only for local testing
+// Main domain pawansuthar.in is hosted externally
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
+  const host = req.headers.host || "";
+
+  // // For localhost or render preview - show deployment page
+  // if (host.includes("localhost") || host.includes(".onrender.com")) {
+  //   return res.sendFile(path.join(__dirname, "../public/index.html"));
+  // }
+
+  // Main domain is handled externally, don't serve anything
+  res.status(404).send("Use new.pawansuthar.in to view the deployed site");
 });
 
 // 404 handler
