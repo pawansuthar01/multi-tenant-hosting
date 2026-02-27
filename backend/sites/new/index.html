@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new - Deployed on localhost</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            padding: 20px 40px;
+            border-bottom: 1px solid #1f1f1f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .logo span {
+            color: #22c55e;
+        }
+        .manage-btn {
+            background: #171717;
+            color: #a3a3a3;
+            border: 1px solid #262626;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .manage-btn:hover {
+            background: #262626;
+            color: #fff;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        .hero {
+            text-align: center;
+            max-width: 600px;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: #737373;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .url-box {
+            display: inline-flex;
+            align-items: center;
+            background: #141414;
+            border: 1px solid #262626;
+            border-radius: 10px;
+            padding: 12px 16px;
+            gap: 12px;
+        }
+        .url-box a {
+            color: #22c55e;
+            text-decoration: none;
+            font-family: monospace;
+            font-size: 0.95rem;
+        }
+        .url-box a:hover {
+            text-decoration: underline;
+        }
+        .copy-btn {
+            background: #262626;
+            border: none;
+            color: #737373;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .copy-btn:hover {
+            background: #333;
+            color: #fff;
+        }
+        .action-box {
+            margin-top: 32px;
+            padding: 20px;
+            background: #141414;
+            border: 1px solid #262626;
+            border-radius: 12px;
+        }
+        .action-box p {
+            color: #a3a3a3;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #22c55e;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .upload-btn:hover {
+            background: #16a34a;
+        }
+        footer {
+            padding: 20px 40px;
+            border-top: 1px solid #1f1f1f;
+            text-align: center;
+            color: #525252;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">localhost</div>
+        <a href="https://localhost/manage.html?subdomain=new" class="manage-btn">
+            ⚙️ Manage
+        </a>
+    </header>
+    <main>
+        <div class="hero">
+            <div class="badge">✓ Live</div>
+            <h1>Your site is deployed</h1>
+            <p class="subtitle">
+                <strong>new.localhost</strong> is now live and ready to serve your content.
+            </p>
+            <div class="url-box">
+                <a href="https://new.localhost" id="url">https://new.localhost</a>
+                <button class="copy-btn" onclick="copyUrl()">Copy</button>
+            </div>
+            <div class="action-box">
+                <p>Want to update your site? Upload new files here:</p>
+                <a href="https://localhost/manage.html?subdomain=new" class="upload-btn">
+                    📁 Upload New Files
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        Powered by localhost
+    </footer>
+    <script>
+        function copyUrl() {
+            const url = document.getElementById('url').textContent;
+            navigator.clipboard.writeText(url);
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 2000);
+        }
+    </script>
+</body>
+</html>

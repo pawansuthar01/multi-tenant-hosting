@@ -150,8 +150,13 @@ module.exports = (req, res, next) => {
   // Remove port if present
   const hostname = host.split(":")[0];
 
-  // Skip main domain requests (let them pass through to static files or external hosting)
-  if (hostname === MAIN_DOMAIN || hostname === `www.${MAIN_DOMAIN}`) {
+  const RESERVED = ["www", "new"];
+  const baseDomain = hostname.replace(`.${MAIN_DOMAIN}`, "");
+  if (
+    hostname === MAIN_DOMAIN ||
+    RESERVED.includes(baseDomain) ||
+    hostname === `www.${MAIN_DOMAIN}`
+  ) {
     return next();
   }
 

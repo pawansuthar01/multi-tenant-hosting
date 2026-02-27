@@ -449,6 +449,12 @@ exports.checkAvailability = (req, res) => {
       error: "Subdomain name is required",
     });
   }
+  if (name == "new") {
+    return res.status(403).json({
+      available: false,
+      error: "Subdomain name is not Available",
+    });
+  }
 
   const cleanName = name.toLowerCase().trim();
   const sitesDir = ensureSitesDir();
