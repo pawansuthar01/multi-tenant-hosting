@@ -44,6 +44,23 @@ app.get("/", (req, res) => {
   res.status(404).send("Use new.pawansuthar.in to view the deployed site");
 });
 
+setInterval(async () => {
+  try {
+    await axios.get(`${process.env.Backend_URL}/ping`);
+  } catch (error) {
+    console.error("Error pinging server:", error.message);
+  }
+}, 15000);
+
+/// routed handel///
+
+app.get("/ping", async (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Pong..",
+  });
+});
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({
